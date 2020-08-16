@@ -1,0 +1,30 @@
+<div
+  class="input-group mb-3 d-flex form-content"
+  [formGroup]="formGroupInstance"
+>
+  <div class="input-group-prepend grow-small">
+    <span
+      class="input-group-text darker-prepend"
+      attr.id="basic-addon-{{ formControlLabel }}"
+    >
+      {{ displayName }}
+    </span>
+  </div>
+  <div class="grow-big">
+    <ng-container
+      *ngTemplateOutlet="inputTemplate ? inputTemplate : defaultInput"
+    ></ng-container>
+  </div>
+
+  <ng-template #defaultInput>
+    <input
+      type="text"
+      [formControlName]="formControlLabel"
+      class="form-control"
+      [placeholder]="displayName"
+      [attr.aria-label]="displayName"
+      attr.iaria-describedby="basic-addon-{{ formControlLabel }}"
+      [value]="formGroupInstance.get(formControlLabel).value"
+    />
+  </ng-template>
+</div>

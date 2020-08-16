@@ -1,0 +1,129 @@
+<div class="common-heading detail-heading">
+  Employee Detail
+</div>
+<ng-container *ngIf="employeeForm != null; else emptyDetail">
+  <div class="form-container">
+    <form [formGroup]="employeeForm">
+      <app-detail-item
+        [formGroupInstance]="employeeForm"
+        formControlLabel="name"
+        displayName="Name"
+      ></app-detail-item>
+
+      <app-datepicker-item
+        [formGroupInstance]="employeeForm"
+        formControlLabel="birthDate"
+        displayName="Birth Date"
+      ></app-datepicker-item>
+
+      <app-dropdown-item
+        [formGroupInstance]="employeeForm"
+        formControlLabel="gender"
+        displayName="Gender"
+        [itemList]="(lists$ | async)?.genders"
+        [dropdownItemsTemplate]="genderTmplt"
+        propName="value"
+      ></app-dropdown-item>
+
+      <app-dropdown-item
+        [formGroupInstance]="employeeForm"
+        formControlLabel="jobCategory"
+        displayName="Job Category"
+        [itemList]="(lists$ | async)?.jobCategories"
+        [dropdownItemsTemplate]="jobCategoryTmplt"
+        propName="title"
+      ></app-dropdown-item>
+
+      <app-detail-item
+        [formGroupInstance]="employeeForm"
+        formControlLabel="email"
+        displayName="Email"
+      ></app-detail-item>
+
+      <app-detail-item
+        [formGroupInstance]="employeeForm"
+        formControlLabel="phoneNumber"
+        displayName="Phone Number"
+      ></app-detail-item>
+
+      <app-dropdown-item
+        [formGroupInstance]="employeeForm"
+        formControlLabel="country"
+        displayName="Country"
+        [itemList]="(lists$ | async)?.countries"
+        [dropdownItemsTemplate]="countryTmplt"
+        propName="name"
+      ></app-dropdown-item>
+
+      <app-datepicker-item
+        [formGroupInstance]="employeeForm"
+        formControlLabel="joinedDate"
+        displayName="Joined"
+      ></app-datepicker-item>
+
+      <app-datepicker-item
+        [formGroupInstance]="employeeForm"
+        formControlLabel="exitedDate"
+        displayName="Left"
+      ></app-datepicker-item>
+    </form>
+  </div>
+  <div>
+    <button
+      class="btn-primary detail-button save-button"
+      (click)="saveEmployee()"
+    >
+      Save
+    </button>
+    <button
+      class="btn-primary detail-button delete-button"
+      (click)="deleteEmployee()"
+    >
+      Delete
+    </button>
+    <button
+      class="btn-primary detail-button back-button"
+      (click)="navigateToList()"
+    >
+      Back
+    </button>
+  </div>
+</ng-container>
+<ng-template #emptyDetail
+  ><span style="color: red;">Employee data not present!</span>
+</ng-template>
+<ng-container *ngIf="dbOperationFailed">
+  <span style="color: red;"> Database operation failed!</span>
+</ng-container>
+<ng-template
+  #countryDropdownTemplate
+  let-country="item"
+  let-dropdown="dropdown"
+>
+  <span
+    ngbDropdownItem
+    (click)="changeDropdownValue(country, 'country', dropdown)"
+  >
+    {{ country.name }}
+  </span>
+</ng-template>
+<ng-template
+  #jobCategoryDropdownTemplate
+  let-jobCategory="item"
+  let-dropdown="dropdown"
+>
+  <span
+    ngbDropdownItem
+    (click)="changeDropdownValue(jobCategory, 'jobCategory', dropdown)"
+  >
+    {{ jobCategory.title }}
+  </span>
+</ng-template>
+<ng-template #genderDropdownTemplate let-gender="item" let-dropdown="dropdown">
+  <span
+    ngbDropdownItem
+    (click)="changeDropdownValue(gender, 'gender', dropdown)"
+  >
+    {{ gender.value }}
+  </span>
+</ng-template>

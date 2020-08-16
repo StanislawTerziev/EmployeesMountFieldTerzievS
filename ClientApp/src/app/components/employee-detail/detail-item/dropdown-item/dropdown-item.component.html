@@ -1,0 +1,55 @@
+<ng-template #dropdownDetailItemTmplt>
+  <ng-container [formGroup]="formGroupInstance">
+    <div ngbDropdown #dropdownInstance>
+      <input
+        type="text"
+        [formControlName]="formControlLabel"
+        class="form-control"
+        [placeholder]="displayName"
+        [attr.aria-label]="displayName"
+        [value]="formGroupInstance.get(formControlLabel).value[propName]"
+        ngbDropdownToggle
+        id="dropdown-{{ formControlLabel }}"
+      />
+      <div
+        ngbDropdownMenu
+        attr.aria-labelledby="dropdown-{{ formControlLabel }}"
+      >
+        <!-- <button ngbDropdownItem>Action - 1</button>
+        <button ngbDropdownItem>Another Action</button>
+        <button ngbDropdownItem>Something else is here</button> -->
+        <ng-container *ngFor="let item of itemList">
+          <ng-container
+            *ngTemplateOutlet="
+              dropdownItemsTemplate
+                ? dropdownItemsTemplate
+                : defaultDropdownTemplate;
+              context: {
+                item: item,
+                dropdown: dropdownInstance
+              }
+            "
+          ></ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template
+  #defaultDropdownTemplate
+  let-dropdownItem="item"
+  let-propName="prop"
+>
+  <span ngbDropdownItem (click)="changeDropdownValue(item, prop)">
+    {{ dropdownItem }}
+  </span>
+</ng-template>
+
+<app-detail-item
+  [inputTemplate]="dropdownTmplt"
+  [formGroupInstance]="formGroupInstance"
+  [formControlLabel]="formControlLabel"
+  [displayName]="displayName"
+>
+</app-detail-item>

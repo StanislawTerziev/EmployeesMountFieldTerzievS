@@ -1,0 +1,25 @@
+<ng-template #datepickerDetailItem>
+  <ng-container [formGroup]="formGroupInstance">
+    <input
+      type="text"
+      [formControlName]="formControlLabel"
+      class="form-control"
+      [placeholder]="displayName"
+      [attr.aria-label]="displayName"
+      attr.iaria-describedby="basic-addon-{{ formControlLabel }}"
+      [value]="formGroupInstance.get(formControlLabel).value | leftDate"
+      ngbDatepicker
+      #datePicker="ngbDatepicker"
+      (dateSelect)="changeDate($event)"
+      (click)="datePicker.toggle()"
+    />
+  </ng-container>
+</ng-template>
+
+<app-detail-item
+  [inputTemplate]="datepickerTmplt"
+  [formGroupInstance]="formGroupInstance"
+  [formControlLabel]="formControlLabel"
+  [displayName]="displayName"
+>
+</app-detail-item>

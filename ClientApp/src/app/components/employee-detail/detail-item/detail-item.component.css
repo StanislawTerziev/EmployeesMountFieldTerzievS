@@ -1,0 +1,16 @@
+.darker-prepend {
+  background-color: #ced4da;
+  width: 100%;
+}
+
+.grow-small {
+  width: 150px;
+}
+
+.grow-big {
+  flex-grow: 25;
+}
+
+.form-content {
+  width: 440px;
+}

@@ -1,0 +1,6 @@
+.common-heading {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  color: #464646;
+}
